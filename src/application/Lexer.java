@@ -10,8 +10,11 @@ import java.util.regex.Pattern;
 public class Lexer {
 	public static String regexPat = "\\s*((//.*)|([0-9]+)|(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")"
 			+ "|[A-Z_a-z][A-Z_a-z0-9]*|\\+=|-=|\\*=|/=|%=|\\+\\+|--|==|<=|>=|&&|\\|\\||\\p{Punct})?";
+	public static String regexChina = "^[\\u4e00-\\u9fa5]";
 	
 	private Pattern pattern = Pattern.compile(regexPat);
+	private Pattern patternChina = Pattern.compile(regexChina);
+	
 	private ArrayList<Token> queue = new ArrayList<Token>();
 	private boolean hasMore;
 	private LineNumberReader reader;
@@ -22,6 +25,7 @@ public class Lexer {
 	}
 	
 	public Token read() throws Exception {
+		
 		if(fillQueue(0))
 			return queue.remove(0);
 		else
@@ -36,6 +40,7 @@ public class Lexer {
 	}
 	
 	private boolean fillQueue(int i) throws Exception {
+
 		while(i >= queue.size()) {
 			if(hasMore)
 				readLine();
@@ -65,15 +70,25 @@ public class Lexer {
 		matcher.useTransparentBounds(true).useAnchoringBounds(false);
 		int pos = 0;
 		int endPos = line.length();
-		while(pos < endPos) {
-			matcher.region(pos, endPos);
-			if(matcher.lookingAt()) {
-				addToken(lineNo, matcher);
-				pos = matcher.end();
-			}else {
-				throw new Exception("bad token at line " + lineNo);
+		
+		Matcher matcherChina = patternChina.matcher(line);
+
+		if(matcherChina.lookingAt()) {
+			System.err.println("bad token at line " + lineNo);
+		}
+		
+		else {
+			while(pos < endPos) {
+				matcher.region(pos, endPos);			
+				if(matcher.lookingAt()) {
+					addToken(lineNo, matcher);
+					pos = matcher.end();
+				}else {
+					throw new Exception("bad token at line " + lineNo);
+				}
 			}
 		}
+		
 		queue.add(new IdToken(lineNo, Token.EOL));
 	}
 	

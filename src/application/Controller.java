@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,12 +26,20 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void newLexer(ActionEvent event) {
+    public void newLexer(ActionEvent event) throws UnsupportedEncodingException {
         String input = textInput.getText();
+        
+//        String input = new String(input1.getBytes("gbk"),"gbk");
+        
         Lexer lx = new Lexer(new StringReader(input));
+
+        
         try{
             String type;
+            System.out.println("----------------------------");
+           
             for(Token t; (t = lx.read()) != Token.EOF;){
+            	
                 switch (t.getType()){
                     case 1:
                         type = "Number";
@@ -52,6 +61,9 @@ public class Controller implements Initializable {
                 }
                 System.out.println(type + "  =>  " + t.getText());
             }
+            
+            System.out.println("----------------------------");	
+            
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
