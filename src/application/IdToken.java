@@ -42,6 +42,7 @@ public class IdToken extends Token{
         add("--");
         add(";");
         add(".");
+        add("\"");
     }};
     protected IdToken(int line, String id) {
         super(line);

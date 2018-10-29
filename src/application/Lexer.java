@@ -74,7 +74,7 @@ public class Lexer {
 		Matcher matcherChinaStr = patternChinaStr.matcher(line);
 				
 		if(matcherChina.find()&&!matcherChinaStr.find()) {
-			System.err.println("Wrong identifier at line " + lineNo+ ", posiotion " + matcherChina.start());
+			System.err.println("Wrong identifier at line " + lineNo+ ", posiotion " + matcherChina.start() + ":" + matcherChina.group(0));
 			line = matcherChina.replaceAll("");
 		}
 

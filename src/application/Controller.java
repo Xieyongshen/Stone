@@ -69,4 +69,9 @@ public class Controller implements Initializable {
         }
     }
 
+    @FXML
+    public void clearLexer(ActionEvent event){
+        textInput.setText("");
+    }
+
 }
