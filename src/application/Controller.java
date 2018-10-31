@@ -6,8 +6,10 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -72,6 +74,31 @@ public class Controller implements Initializable {
     @FXML
     public void clearLexer(ActionEvent event){
         textInput.setText("");
+    }
+
+    @FXML
+    public void importFile(ActionEvent event){
+        Stage mainStage = null;
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("选择文法文件");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(mainStage);
+
+        try {
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "GBK");
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+            String content = "";
+            while ((line = br.readLine()) != null) {
+                content += line + "\n";
+            }
+            textInput.setText(content);
+            br.close();
+            isr.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }

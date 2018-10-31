@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Lexer {
-	public static String regexPat = "\\s*((//.*)|([0-9]+)|(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")"
+	public static String regexPat = "\\s*((//.*)|([0-9]+(\\.[0-9]+)?)|(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")"
 			+ "|[A-Z_a-z][A-Z_a-z0-9]*|\\+=|-=|\\*=|/=|%=|\\+\\+|--|==|<=|>=|&&|\\|\\||\\p{Punct})?";
 	public static String regexChina = "[\\u4e00-\\u9fa5\\u3002\\uff1b\\uff0c\\uff1a\\u201c\\u201d\\uff08\\uff09\\u3001\\uff1f\\u300a\\u300b]";
 	public static String regexChinaStr = "\"[\\u4e00-\\u9fa5\\u3002\\uff1b\\uff0c\\uff1a\\u201c\\u201d\\uff08\\uff09\\u3001\\uff1f\\u300a\\u300b]*\"";
@@ -103,8 +103,8 @@ public class Lexer {
 			if (matcher.group(2) == null) {
 				Token token;
 				if (matcher.group(3) != null)
-					token = new NumToken(lineNo, Integer.parseInt(m));
-				else if (matcher.group(4) != null)
+					token = new NumToken(lineNo, Double.parseDouble(m));
+				else if (matcher.group(5) != null)
 					token = new StrToken(lineNo, toStringLiteral(m));
 				else
 					token = new IdToken(lineNo, m);

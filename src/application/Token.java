@@ -34,7 +34,7 @@ public abstract class Token {
 
 	public boolean isEOL() { return false; }
 	
-	public int getNumber() {
+	public double getNumber() {
 		throw new RuntimeException("not number token");
 	}
 	
