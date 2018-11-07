@@ -70,30 +70,26 @@ public class Lexer {
 
 		int lineNo = reader.getLineNumber();
 		
-		Matcher matcherChina = patternChina.matcher(line);
-		Matcher matcherChinaStr = patternChinaStr.matcher(line);
-				
-		if(matcherChina.find()&&!matcherChinaStr.find()) {
-			System.err.println("Wrong identifier at line " + lineNo+ ", posiotion " + matcherChina.start() + ":" + matcherChina.group(0));
-			line = matcherChina.replaceAll("");
-		}
 
-		else {
+
+
+
+
 			Matcher matcher = pattern.matcher(line);
 			matcher.useTransparentBounds(true).useAnchoringBounds(false);
 			int pos = 0;
 			int endPos = line.length();
 			while (pos < endPos) {
 				matcher.region(pos, endPos);
-				if (matcher.lookingAt()) {
+				if (matcher.lookingAt() && matcher.end() != pos) {
 					addToken(lineNo, matcher);
 					pos = matcher.end();
 				} else {
-					throw new Exception("bad token at line " + lineNo);
+                    System.out.println("Wrong identifier at line " + lineNo+ ", posiotion " + matcher.end());
+                    break;
 				}
 			}
-		}
-		
+
 		queue.add(new IdToken(lineNo, Token.EOL));
 	}
 

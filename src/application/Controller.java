@@ -80,13 +80,13 @@ public class Controller implements Initializable {
     public void importFile(ActionEvent event){
         Stage mainStage = null;
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("选择文法文件");
+        fileChooser.setTitle("选择文件");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(mainStage);
 
         try {
-            InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "GBK");
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "UTF-8");
             BufferedReader br = new BufferedReader(isr);
             String line;
             String content = "";
