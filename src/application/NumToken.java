@@ -6,7 +6,6 @@ public class NumToken extends Token{
         super(line);
         value = v;
     }
-    public boolean isNumber() { return true; }
     public int getType() { return 1; }
     public String getText() {
         if(value % 1.0 == 0){

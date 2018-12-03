@@ -14,23 +14,8 @@ public abstract class Token {
 		return lineNumber;
 	}
 
+	//识别token类型：0--未知，1--NumToken，2--StrToken, 3--IdToken, 4--Keyword, 5--Operator
 	public int getType() { return 0; }
-
-	public boolean isIdentifier() {
-		return false;
-	}
-	
-	public boolean isNumber() {
-		return false;
-	}
-	
-	public boolean isString() {
-		return false;
-	}
-
-	public boolean isKeyword() { return false; }
-
-	public boolean isOperator() { return false; }
 
 	public boolean isEOL() { return false; }
 	

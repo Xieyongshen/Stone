@@ -47,19 +47,23 @@ public class Controller implements Initializable {
                         type = "Number";
                         break;
                     case 2:
-                        type = "Identifier";
+                        type = "String";
                         break;
                     case 3:
-                        type = "String";
+                        type = "Identifier";
+                        break;
+                    case 4:
+                        type = "Keyword";
+                        break;
+                    case 5:
+                        type = "Operator";
                         break;
                     default:
                         type = "Invalid token";
                         break;
                 }
-                if(t.getType() == 2){
-                    if(t.isKeyword()) type = "Keyword";
-                    else if(t.isOperator()) type = "Operator";
-                    else if(t.isEOL()) type = "EOL";
+                if(t.isEOL()){
+                    type = "EOL";
                 }
                 System.out.println(type + "  =>  " + t.getText());
             }

@@ -6,7 +6,6 @@ public class StrToken extends Token{
         super(line);
         literal = str;
     }
-    public boolean isString() { return true; }
-    public int getType() { return 3; }
+    public int getType() { return 2; }
     public String getText() { return literal; }
 }
