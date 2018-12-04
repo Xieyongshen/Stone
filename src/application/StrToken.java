@@ -6,6 +6,10 @@ public class StrToken extends Token{
         super(line);
         literal = str;
     }
+
+    @Override
     public int getType() { return 2; }
+
+    @Override
     public String getText() { return literal; }
 }

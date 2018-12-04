@@ -47,13 +47,13 @@ public class KwToken extends Token{
         add(",");
         add("\"");
     }};
+
     protected KwToken(int line, String keyword) {
         super(line);
         text = keyword;
     }
-    public boolean isEOL() {
-        return text.equals(EOL);
-    }
+
+    @Override
     public int getType() {
         if(keywords.indexOf(text) != -1){
             return 4;
@@ -63,5 +63,12 @@ public class KwToken extends Token{
             return 0;
         }
     }
+
+    @Override
+    public boolean isEOL() {
+        return text.equals(EOL);
+    }
+
+    @Override
     public String getText() { return text; }
 }
