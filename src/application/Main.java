@@ -1,5 +1,6 @@
 package application;
 
+import application.astree.ASNode;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

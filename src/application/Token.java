@@ -14,7 +14,7 @@ public abstract class Token {
 		return lineNumber;
 	}
 
-	//识别token类型：0--未知，1--NumToken，2--StrToken, 3--IdToken, 4--Keyword, 5--Operator
+	//璇嗗埆token绫诲瀷锛�0--鏈煡锛�1--NumToken锛�2--StrToken, 3--IdToken, 4--Keyword, 5--Operator
 	public int getType() { return 0; }
 
 	public boolean isEOL() { return false; }
@@ -26,4 +26,5 @@ public abstract class Token {
 	public String getText() {
 		return "";
 	}
+
 }

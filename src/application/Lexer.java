@@ -27,7 +27,7 @@ public class Lexer {
         reader = new LineNumberReader(r);
     }
 
-    public Token read() throws Exception {
+    public Token read()  throws ParseException {
 
         if (fillQueue(0))
             return queue.remove(0);
@@ -35,32 +35,30 @@ public class Lexer {
             return Token.EOF;
     }
 
-    public Token peek(int i) throws Exception {
+    public Token peek(int i)  throws ParseException {
         if (fillQueue(i))
             return queue.get(i);
         else
             return Token.EOF;
     }
 
-    private boolean fillQueue(int i) throws Exception {
-
+    private boolean fillQueue(int i)  throws ParseException {
         while (i >= queue.size()) {
             if (hasMore)
-                readLine();
-            else
+				readLine();
+			else
                 return false;
         }
-
         return true;
     }
 
-    protected void readLine() throws Exception {
+    protected void readLine()  throws ParseException  {
         String line;
 
         try {
             line = reader.readLine();
         } catch (IOException e) {
-            throw new Exception(e);
+            throw new ParseException(e);
         }
 
         if (line == null) {
@@ -77,7 +75,7 @@ public class Lexer {
         while (pos < endPos) {
             matcher.region(pos, endPos);
             if (matcher.lookingAt() && matcher.end() != pos) {
-                if(matcher.group(8) != null){
+            	if(matcher.group(8) != null && KwToken.operators.indexOf(matcher.group(1)) == -1){
                     System.out.println("Wrong identifier at line " + lineNo + ", posiotion " + matcher.end());
                     break;
                 }

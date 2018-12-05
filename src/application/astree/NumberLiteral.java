@@ -1,4 +1,6 @@
-package application;
+package application.astree;
+import application.Token;
+
 
 public class NumberLiteral extends ASTLeaf {
     public NumberLiteral(Token t){

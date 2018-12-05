@@ -1,7 +1,8 @@
-package application;
+package application.astree;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import application.Token;
 
 public class ASTLeaf extends ASNode {
     private static ArrayList<ASNode> empty = new ArrayList<ASNode>();
@@ -32,7 +33,7 @@ public class ASTLeaf extends ASNode {
     }
 
     public String toString(){
-        return token.toString();
+        return token.getText();
     }
 
     public Token getToken(){
