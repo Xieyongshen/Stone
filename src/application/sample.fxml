@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
-      <TextArea fx:id="textInput" layoutX="24.0" layoutY="27.0" prefHeight="234.0" prefWidth="550.0" text="even=0&#10;odd=0&#10;i=1&#10;while i&lt;10 { &#10;    if i % 2 == 0 { //even number?&#10;        even = even + i&#10;    } else {&#10;        odd = odd+i;&#10;    }   &#10;    i = i + 1&#10;}&#10;even + odd" />
+      <TextArea fx:id="textInput" layoutX="24.0" layoutY="27.0" prefHeight="234.0" prefWidth="550.0" text="def fact(n){&#10;    f=1&#10;    while n&gt;0{&#10;        f=f * n&#10;        n=n-1&#10;    }&#10;    f&#10;}" />
       <Button fx:id="btnLexer" layoutX="257.0" layoutY="305.0" mnemonicParsing="false" onAction="#newLexer" prefHeight="39.0" prefWidth="86.0" text="Lexer" />
       <Button fx:id="btnClear" layoutX="410.0" layoutY="305.0" mnemonicParsing="false" onAction="#clearLexer" prefHeight="39.0" prefWidth="86.0" text="Clear" />
       <Button fx:id="btnImport" layoutX="99.0" layoutY="305.0" mnemonicParsing="false" onAction="#importFile" prefHeight="39.0" prefWidth="86.0" text="Import" />
