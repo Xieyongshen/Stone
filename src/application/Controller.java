@@ -72,7 +72,7 @@ public class Controller implements Initializable {
 //            
 //            System.out.println("----------------------------");	
         	
-             FuncParser bp = new FuncParser();
+             ArrayParser bp = new ArrayParser();
              while (lx.peek(0) != Token.EOF) {
                  ASNode ast = bp.parse(lx);
                  System.out.println("=> " + ast.toString());
