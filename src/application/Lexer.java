@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,26 +21,38 @@ public class Lexer {
 
     private ArrayList<Token> queue = new ArrayList<Token>();
     private boolean hasMore;
+    private String input;
     private LineNumberReader reader;
+    private int start = 0;
 
-    public Lexer(Reader r) {
+    public Lexer(String s) {
         hasMore = true;
-        reader = new LineNumberReader(r);
+        input = s;
+        reader = new LineNumberReader(new StringReader(input));
+    }
+
+    private void initializeLexer(){
+        hasMore = true;
+        start = 0;
+        reader = new LineNumberReader(new StringReader(input));
     }
 
     public Token read()  throws ParseException {
-
         if (fillQueue(0))
             return queue.remove(0);
-        else
+        else{
+            initializeLexer();
             return Token.EOF;
+        }
     }
 
     public Token peek(int i)  throws ParseException {
         if (fillQueue(i))
             return queue.get(i);
-        else
+        else{
+            initializeLexer();
             return Token.EOF;
+        }
     }
 
     private boolean fillQueue(int i)  throws ParseException {
@@ -54,6 +67,7 @@ public class Lexer {
 
     protected void readLine()  throws ParseException  {
         String line;
+        boolean correct = true;
 
         try {
             line = reader.readLine();
@@ -61,10 +75,14 @@ public class Lexer {
             throw new ParseException(e);
         }
 
+
         if (line == null) {
             hasMore = false;
             return;
         }
+
+        start = input.indexOf(line, start);
+        int length = line.length();
 
         int lineNo = reader.getLineNumber();
 
@@ -77,17 +95,28 @@ public class Lexer {
             if (matcher.lookingAt() && matcher.end() != pos) {
             	if(matcher.group(8) != null && KwToken.operators.indexOf(matcher.group(1)) == -1){
                     System.out.println("Wrong identifier at line " + lineNo + ", posiotion " + matcher.end());
+                    correct = false;
                     break;
                 }
                 addToken(lineNo, matcher);
                 pos = matcher.end();
             } else {
                 System.out.println("Wrong identifier at line " + lineNo + ", posiotion " + matcher.end());
+                correct = false;
                 break;
             }
         }
 
-        queue.add(new KwToken(lineNo, Token.EOL));
+        if(correct){
+            queue.add(new KwToken(lineNo, Token.EOL));
+            start = start + length;
+        }else{
+            queue.clear();
+            StringBuilder sb = new StringBuilder(input);
+            sb.replace(start, start + length + 1, "");
+            input = sb.toString();
+        }
+
     }
 
     protected void addToken(int lineNo, Matcher matcher) {
