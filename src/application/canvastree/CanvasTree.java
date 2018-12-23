@@ -78,7 +78,6 @@ public class CanvasTree {
         }else{
 		    x = start + 50;
         }
-        System.out.println(cvNode.toString() + " pos: " + x);
 		cvNode.setX(x);
 		return cwidth >= 100 ? cwidth : 100;
 	}
