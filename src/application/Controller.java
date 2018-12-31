@@ -35,16 +35,10 @@ public class Controller implements Initializable {
     @FXML
     public void newLexer(ActionEvent event) throws UnsupportedEncodingException {
         String input = textInput.getText();
-
-//        String input = new String(input1.getBytes("gbk"),"gbk");
-        
         Lexer lx = new Lexer(input);
-
-        
         try{
             String type;
             System.out.println("----------------------------");
-
             for(Token t; (t = lx.read()) != Token.EOF;){
 
                 switch (t.getType()){
@@ -73,7 +67,7 @@ public class Controller implements Initializable {
                 System.out.println(type + "  =>  " + t.getText());
             }
 
-            ArrayList<ASNode> rchildren = new ArrayList<ASNode>();
+            ArrayList<ASNode> rchildren = new ArrayList<>();
 
             System.out.println("----------------------------");
 

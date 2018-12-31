@@ -1,7 +1,6 @@
 package application;
 
 public abstract class Token {
-	
 	public static final Token EOF = new Token(-1) {};
 	public static final String EOL = "\\n";
 	private int lineNumber;
@@ -14,7 +13,7 @@ public abstract class Token {
 		return lineNumber;
 	}
 
-	//璇嗗埆token绫诲瀷锛�0--鏈煡锛�1--NumToken锛�2--StrToken, 3--IdToken, 4--Keyword, 5--Operator
+	//不同类型Token对应返回值：0--未识别Token, 1--NumToken，2--StrToken, 3--IdToken, 4--Keyword, 5--Operator
 	public int getType() { return 0; }
 
 	public boolean isEOL() { return false; }
@@ -26,5 +25,4 @@ public abstract class Token {
 	public String getText() {
 		return "";
 	}
-
 }

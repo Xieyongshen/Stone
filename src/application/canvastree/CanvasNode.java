@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public abstract class CanvasNode implements Iterable<CanvasNode> {
-    protected Circle circle;
-    protected Text text;
-    protected ArrayList<Line> lines;
+    Circle circle;
+    Text text;
+    ArrayList<Line> lines;
 
     public abstract CanvasNode child(int i);
     public abstract int numOfChildren();
@@ -25,7 +25,7 @@ public abstract class CanvasNode implements Iterable<CanvasNode> {
         return children();
     }
 
-    public CanvasNode(String s){
+    CanvasNode(String s){
         circle = new Circle(40);
         circle.setFill(Color.LIGHTBLUE);
         text = new Text(s);

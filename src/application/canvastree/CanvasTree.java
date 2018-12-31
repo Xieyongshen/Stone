@@ -18,13 +18,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class CanvasTree {
-	
 	private CanvasNode root;
 	private double paddingLR;
 	private double paddingTB;
 	private double canvasWidth;
 	private double canvasHeight;
-	private Iterator<ASNode> tree;
 	
 	public CanvasTree(ASNode node) {
         if(node.numOfChildren() == 0)
@@ -37,7 +35,7 @@ public class CanvasTree {
 		canvasWidth = getWidth(root, node, paddingLR) + paddingLR * 2;
 		canvasHeight = getHeight(root, 1) + paddingTB * 2;
 	}
-	
+
 	public CanvasTree(ASNode node, double lr, double tb) {
         if(node.numOfChildren() == 0)
             root = new CanvasLeaf("Program");

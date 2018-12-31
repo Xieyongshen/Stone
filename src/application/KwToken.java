@@ -7,6 +7,7 @@ public class KwToken extends Token{
     public static ArrayList<String> keywords = new ArrayList<String>(){{
         add("while");
         add("if");
+        add("elseif");
         add("else");
         add("print");
         add("def");
@@ -31,7 +32,6 @@ public class KwToken extends Token{
         add(">");
         add("<=");
         add(">=");
-        add("!");
         add("&&");
         add("||");
         add("{");
@@ -40,8 +40,6 @@ public class KwToken extends Token{
         add(")");
         add("[");
         add("]");
-        add("++");
-        add("--");
         add(";");
         add(".");
         add(",");

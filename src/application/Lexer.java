@@ -9,20 +9,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Lexer {
-    public static String regexPat = "\\s*((//.*)|([0-9]+(\\.[0-9]+)?)|(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")"
+    private static String regexPat = "\\s*((//.*)|([0-9]+(\\.[0-9]+)?)|(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")"
             + "|([A-Z_a-z][A-Z_a-z0-9]*)|\\+=|-=|\\*=|/=|%=|\\+\\+|--|==|<=|>=|&&|\\|\\||(\\p{Punct}))?";
-    public static String regexChina = "[\\u4e00-\\u9fa5\\u3002\\uff1b\\uff0c\\uff1a\\u201c\\u201d\\uff08\\uff09\\u3001\\uff1f\\u300a\\u300b]";
-    public static String regexChinaStr = "\"[\\u4e00-\\u9fa5\\u3002\\uff1b\\uff0c\\uff1a\\u201c\\u201d\\uff08\\uff09\\u3001\\uff1f\\u300a\\u300b]*\"";
-
     private Pattern pattern = Pattern.compile(regexPat);
-    private Pattern patternChina = Pattern.compile(regexChina);
-    private Pattern patternChinaStr = Pattern.compile(regexChinaStr);
-
-
     private ArrayList<Token> queue = new ArrayList<Token>();
-    private boolean hasMore;
     private String input;
     private LineNumberReader reader;
+    private boolean hasMore;
     private int start = 0;
 
     public Lexer(String s) {
@@ -37,7 +30,7 @@ public class Lexer {
         reader = new LineNumberReader(new StringReader(input));
     }
 
-    public Token read()  throws ParseException {
+    Token read()  throws ParseException {
         if (fillQueue(0))
             return queue.remove(0);
         else{
@@ -46,7 +39,7 @@ public class Lexer {
         }
     }
 
-    public Token peek(int i)  throws ParseException {
+    Token peek(int i)  throws ParseException {
         if (fillQueue(i))
             return queue.get(i);
         else{
@@ -65,7 +58,7 @@ public class Lexer {
         return true;
     }
 
-    protected void readLine()  throws ParseException  {
+    private void readLine()  throws ParseException  {
         String line;
         boolean correct = true;
 
@@ -94,14 +87,14 @@ public class Lexer {
             matcher.region(pos, endPos);
             if (matcher.lookingAt() && matcher.end() != pos) {
             	if(matcher.group(8) != null && KwToken.operators.indexOf(matcher.group(1)) == -1){
-                    System.out.println("Wrong identifier at line " + lineNo + ", posiotion " + matcher.end());
+                    System.out.println("Wrong identifier at line " + lineNo + ", position " + matcher.end());
                     correct = false;
                     break;
                 }
                 addToken(lineNo, matcher);
                 pos = matcher.end();
             } else {
-                System.out.println("Wrong identifier at line " + lineNo + ", posiotion " + matcher.end());
+                System.out.println("Wrong identifier at line " + lineNo + ", position " + matcher.end());
                 correct = false;
                 break;
             }
@@ -119,7 +112,7 @@ public class Lexer {
 
     }
 
-    protected void addToken(int lineNo, Matcher matcher) {
+    private void addToken(int lineNo, Matcher matcher) {
         String m = matcher.group(1);
         if (m != null)
             if (matcher.group(2) == null) {
@@ -141,7 +134,7 @@ public class Lexer {
             }
     }
 
-    protected String toStringLiteral(String s) {
+    private String toStringLiteral(String s) {
         StringBuilder sb = new StringBuilder();
         int len = s.length() - 1;
         for (int i = 1; i < len; i++) {
@@ -159,5 +152,4 @@ public class Lexer {
         }
         return sb.toString();
     }
-
 }

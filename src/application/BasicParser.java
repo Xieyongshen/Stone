@@ -14,12 +14,9 @@ public class BasicParser {
             rule().number(NumberLiteral.class),
             rule().identifier(Name.class, reserved),
             rule().string(StringLiteral.class));
-    Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(primary),
-                              rule(NonExpr.class).sep("!").ast(primary),
-                              primary);                               
+    Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(primary), primary);
     Parser expr = expr0.expression(BinaryExp.class, factor, operators);
     Parser condition = rule().expression(ConditionExp.class, expr, logOperators);
-
     Parser statement0 = rule();
     Parser block = rule(BlockStmnt.class)
         .sep("{").option(statement0)
@@ -32,7 +29,6 @@ public class BasicParser {
                     .option(rule().sep("else").ast(block)),
             rule(WhileStmnt.class).sep("while").ast(condition).ast(block),
             simple);
-
     Parser program = rule().or(statement, rule(NullStmnt.class))
                            .sep(";", Token.EOL);
 
@@ -42,7 +38,13 @@ public class BasicParser {
         reserved.add(Token.EOL);
 
         operators.add("=", 1, Operators.RIGHT);
+        operators.add("+=", 1, Operators.RIGHT);
+        operators.add("-=", 1, Operators.RIGHT);
+        operators.add("*=", 1, Operators.RIGHT);
+        operators.add("/=", 1, Operators.RIGHT);
+        operators.add("%=", 1, Operators.RIGHT);
         operators.add("==", 2, Operators.LEFT);
+        operators.add("!=", 2, Operators.LEFT);
         operators.add(">", 2, Operators.LEFT);
         operators.add(">=", 2, Operators.LEFT);
         operators.add("<", 2, Operators.LEFT);
